@@ -52,14 +52,16 @@
         }
     }
 
-    //getInitialState - This is only supported for classes created using React.createClass
-    //React.createClass was deprecated and instead of it we should use create-react-class from create-react-class.js
-    let ContactsList = createReactClass ({
-        getInitialState() {
-            return {
+    class ContactsList extends React.Component {
+        constructor(){
+            super();
+
+            this.state = {
                 displayedContacts: CONTACTS
-            }
-        },
+            };
+
+            this.handleSearch = this.handleSearch.bind(this);
+        }
 
         handleSearch(event) {
             let searchQuery = event.target.value.toLocaleLowerCase();
@@ -73,7 +75,7 @@
             this.setState({
                 displayedContacts: displayedContacts
             });
-        },
+        }
 
         render() {
             return (
@@ -93,7 +95,7 @@
                 </div>
             );
         }
-    });
+    }
 
     ReactDOM.render(
         <ContactsList/>,
