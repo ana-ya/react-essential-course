@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easy calculator</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/create-react-class@15.6.3/create-react-class.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id='content'></div>
+
+<script type="text/babel">
+
+    class Calculator extends React.Component {
+        constructor(){
+            super();
+
+            this.state = {
+                firstNumber: '',
+                secondNumber: ''
+            };
+
+            this.handleChangeFirstNumber = this.handleChangeFirstNumber.bind(this);
+            this.handleChangeSecondNumber = this.handleChangeSecondNumber.bind(this);
+        }
+
+        handleChangeFirstNumber(event) {
+            this.setState({
+                firstNumber: event.target.value
+            });
+        }
+
+        handleChangeSecondNumber(event) {
+            this.setState({
+                secondNumber: event.target.value
+            });
+        }
+
+        showResult(operation, a, b){
+            if(!(a && b))
+                return '';
+
+            switch(operation){
+                case 'add':
+                    return a + ' + ' + b + ' = ' + (parseInt(a) + parseInt(b));
+                case 'mul':
+                    return a + ' * ' + b + ' = ' + a*b;
+                case 'sub':
+                    return a + ' - ' + b + ' = ' + (a-b);
+                default: return '';
+            }
+        }
+
+        render() {
+            return (
+                <div>
+                    <input type="number" onChange={this.handleChangeFirstNumber}/>
+                    <input type="number" onChange={this.handleChangeSecondNumber}/>
+                    <div>{this.showResult('add', this.state.firstNumber, this.state.secondNumber)}</div>
+                    <div>{this.showResult('mul', this.state.firstNumber, this.state.secondNumber)}</div>
+                    <div>{this.showResult('sub', this.state.firstNumber, this.state.secondNumber)}</div>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <Calculator/>,
+        document.getElementById('content')
+    );
+
+</script>
+</body>
+</html>
